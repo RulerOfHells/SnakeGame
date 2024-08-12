@@ -1,0 +1,6 @@
+# Vscode
+.vscode/
+
+# Binaries
+*.class
+bin/

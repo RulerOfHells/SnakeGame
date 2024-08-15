@@ -76,7 +76,6 @@ public class Game implements Runnable {
         try {
             logger.info("Game ended");
             running = false;
-
             win.setVisible(false);
             win.dispose();
 

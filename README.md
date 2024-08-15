@@ -1,3 +1,3 @@
 # SnakeGame
 Desktop snake game in java using Swing library.
-Release `SnakGame.jar`
+Recent release is `SnakeGame/SnakGame.jar`

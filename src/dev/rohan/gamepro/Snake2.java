@@ -1,129 +1,146 @@
-// package dev.rohan.gamepro;
+package dev.rohan.gamepro;
 
-// import java.awt.Graphics;
-// import java.awt.Point;
-// import java.awt.Rectangle;
-// import java.util.Deque;
-// import java.util.LinkedList;
-// import java.awt.Color;
+import static dev.rohan.gamepro.SnakeDirTile.DIRWIDTH;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.Rectangle;
+import java.util.LinkedList;
+import java.awt.Color;
 
-// public class Snake2 {
-//     private int body;
-//     private int size;
-//     private int count;
-//     private LinkedList<Point> snake;
-//     private Handler handler;
-//     private boolean gameOver;
+public class Snake2 {
+    private LinkedList<SnakeDirTile> snake;
+    private Handler handler;
+    private boolean gameOver;
+    private Color snakeColor;
+    private char dir;
+    private int count;
 
-//     public Snake2(Handler handler) {
-//         this.handler = handler;
-//         reinit();
-//     }
+    public Snake2(Handler handler) {
+        this.handler = handler;
+        reinit();
+    }
 
-//     public void reinit() {
-//         count = 0;
-//         body = 5;         //Starts with snake having this much body parts
-//         size = 30;
-//         gameOver = false;
+    public void reinit() {
+        gameOver = false;
+        dir = 'R';
+        snakeColor = Color.BLUE;
+        snake = new LinkedList<>();
+        snake.add(new SnakeDirTile(new Rectangle(100, 100, DIRWIDTH, DIRWIDTH), dir));
+    }
 
-//         snake = new LinkedList<>();
-//         snake.addLast(new Point(15, 15));
+    private boolean checkBoundCrashes() {
+        final Rectangle rect = new Rectangle(0, 0, 707, 580);
+        return !rect.contains(snake.getFirst().rect);
+    }
 
-//         handler.getKeyManager().setDirection('R');  //initial snake direction
-//     }
+    private boolean checkSelfCrash() {
+        return false; //needs implementation
+    }
 
-//     private boolean isOutOfBoundsY(int newY) {      //checks if snake head is out of bounds
-//         return (newY < 0 || newY > 580 - size);
-//     }
+    private void checkGameOver() {
+        gameOver = checkBoundCrashes() || checkSelfCrash();
+    }
 
-//     private boolean isOutOfBoundsX(int newX) {
-//         return (newX < 0 || newX > 707 - size);
-//     }
+    private void move() {                    //Handles snake movements
+        final SnakeDirTile first = snake.getFirst();
+        final SnakeDirTile last = snake.getLast();
+        switch(dir) {
+            case 'D':
+                if(first.rect.height >= DIRWIDTH) {
+                    Rectangle rect = new Rectangle(first.rect.x + (first.direction == 'L' ? 0 : first.rect.width - DIRWIDTH), first.rect.y + DIRWIDTH, DIRWIDTH, 1);
+                    snake.addFirst(new SnakeDirTile(rect, dir));
+                } else {
+                    first.rect.height++;
+                }
+            break;
 
-//     private boolean checkBoundCrashes(int newX, int newY) {
-//         return isOutOfBoundsX(newX) || isOutOfBoundsY(newY);
-//     }
+            case 'U':
+                if(first.rect.height >= DIRWIDTH) {
+                    Rectangle rect = new Rectangle(first.rect.x + (first.direction == 'L' ? 0 : first.rect.width - DIRWIDTH), first.rect.y, DIRWIDTH, 1);
+                    snake.addFirst(new SnakeDirTile(rect, dir));
+                } else {
+                    first.rect.y--;
+                    first.rect.height++;
+                }
+            break;
 
-//     private boolean checkSelfCrash() {
-//         return false;
-//     }
+            case 'L':
+                if(first.rect.width >= DIRWIDTH) {
+                    Rectangle rect = new Rectangle(first.rect.x, first.rect.y + (first.direction == 'U' ? 0 : first.rect.height - DIRWIDTH), 1, DIRWIDTH);
+                    snake.addFirst(new SnakeDirTile(rect, dir));
+                } else {
+                    first.rect.x--;
+                    first.rect.width++;
+                }
+            break;
 
-//     private void checkGameOver(int newX, int newY) {
-//         gameOver = checkBoundCrashes(newX, newY) || checkSelfCrash();
-//     }
+            case 'R':
+                if(first.rect.width >= DIRWIDTH) {
+                    Rectangle rect = new Rectangle(first.rect.x + first.rect.width, first.rect.y + (first.direction == 'U' ? 0 : first.rect.height - DIRWIDTH), 1, DIRWIDTH);
+                    snake.addFirst(new SnakeDirTile(rect, dir));
+                } else {
+                    first.rect.width++;
+                }
+            break;
+        }
+        if (last.update())
+            snake.removeLast();
+    }
 
-//     private void move() {                    //Handles snake movements
-//         Point head = snake.peekLast();
-//         int newX = (int) head.getX();
-//         int newY = (int) head.getY();
+    private void collide() {         //Eats the food on collision
+        int[] foodX = handler.getFood().getFoodX();
+        int[] foodY = handler.getFood().getFoodY();
 
-//         switch(handler.getKeyManager().getDirection()) {    //updates snake head position and registers game over
-//             case 'U':
-//             newY--;
-//             break;
+        for(int i = 0; i < foodX.length; i++) {     //Loops through each food and check if snake collides
+            var first = snake.getFirst();
+            var last = snake.getLast();
+            if(first.rect.contains(foodX[i], foodY[i])) {
+                handler.getFood().unPlaceFood(foodX[i], foodY[i]);
+                count++;
+                switch(last.direction) {
+                    case 'U':
+                        last.rect.height += DIRWIDTH;
+                    break;
 
-//             case 'D':
-//             newY++;
-//             break;
+                    case 'D':
+                        last.rect.y -= DIRWIDTH;
+                        last.rect.height += DIRWIDTH;
+                    break;
+                    
+                    case 'L':
+                        last.rect.width += DIRWIDTH;
+                    break;
 
-//             case 'L':
-//             newX--;
-//             break;
+                    case 'R':
+                        last.rect.x -= DIRWIDTH;
+                        last.rect.width += DIRWIDTH;
+                    break;
+                }
+            }
+        }
+    }
 
-//             case 'R':
-//             newX++;
-//             break;
+    public int getCount() {
+        return count;
+    }
 
-//             default: //do nothing
-//         }
+    public void tick() {
+        dir = handler.getKeyManager().getDirection();
+        move();
+        collide();
+        checkGameOver();
+    }
 
-//         checkGameOver(newX, newY);
-//         collide(newX, newY);
+    public boolean isGameOver() {
+        return gameOver;
+    }
 
-//         for(int i = snake.size()-1; i > 0; i--) {
-//             Point current = snake.get(i);
-//             Point previous = snake.get(i-1);
-//             if (Math.abs(current.getX() - newX) <= size && Math.abs(current.getY() - newY) <= size) {
-//                 continue; // Skip update if colliding with head (or other segments)
-//             }
-//             snake.set(i, previous);
-//         }
-
-//         snake.addLast(new Point(newX, newY));
-
-//         if(snake.size() > 3)
-//             snake.removeFirst();
-//     }
-
-//     private void collide(int newX, int newY) {         //Eats the food on collision
-//         int[] foodX = handler.getFood().getFoodX();
-//         int[] foodY = handler.getFood().getFoodY();
-
-//         for(int i = 0; i < foodX.length; i++) {     //Loops through each food and check if snake collides
-//             var rect = new Rectangle(newX, newY, size, size);
-//             if(rect.contains(foodX[i], foodY[i]))
-//                 handler.getFood().unPlaceFood(foodX[i], foodY[i]);
-//         }
-//     }
-
-//     public int getCount() {
-//         return count;
-//     }
-
-//     public void tick() {
-//         move();
-//     }
-
-//     public boolean isGameOver() {
-//         return gameOver;
-//     }
-
-//     public void render(Graphics g) {        //Displays snake on screen
-//         for(var body : snake) {
-//             int x = (int) body.getX() * size;
-//             int y = (int) body.getY() * size;
-//             g.setColor(Color.BLUE);
-//             g.fillRect(x, y, size, size);
-//         }
-//     }
-// }
+    public void render(Graphics g) {        //Displays snake on screen
+        final Graphics2D graphics2D = (Graphics2D) g;
+        graphics2D.setColor(snakeColor);
+        for (var body : snake) {
+            final Rectangle tile = body.rect;
+            graphics2D.fillRect(tile.x, tile.y, tile.width, tile.height);
+        }
+    }
+}

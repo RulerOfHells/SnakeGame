@@ -7,13 +7,14 @@ import java.awt.Graphics;
 public class GameState extends State {      //Implementation of State to display game contents
 
     private Handler handler;
-    private Snake snake;
+    // private Snake snake;
+    private Snake2 snake;
     private Food food;
 
     public GameState(Handler handler) {
         this.handler = handler;
         food = handler.getFood();
-        snake = handler.getSnake();
+        snake = handler.getSnake2();
     }
 
     @Override

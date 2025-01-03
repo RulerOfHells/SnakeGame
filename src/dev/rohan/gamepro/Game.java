@@ -92,7 +92,7 @@ public class Game implements Runnable {
         win.menuInit();
         win.display();
 
-        final int FPS = 15;
+        final int FPS = 60;
         int counter = 0;
         double timePerTick = 1_000_000_000 / (double) FPS;
         double delta = 0.0;

@@ -34,7 +34,35 @@ public class Snake2 {
     }
 
     private boolean checkSelfCrash() {
-        return false; //needs implementation
+        int collidingX = 0, collidingY = 0;
+        SnakeDirTile first = snake.getFirst();
+        
+        switch(first.direction) {
+            case 'U':
+                collidingX = first.rect.x + DIRWIDTH/2;
+                collidingY = first.rect.y;
+                break;
+            
+            case 'D':
+                collidingX = first.rect.x + DIRWIDTH/2;
+                collidingY = first.rect.y + first.rect.height;
+                break;
+            case 'L':
+                collidingX = first.rect.x;
+                collidingY = first.rect.y + DIRWIDTH/2;
+                break;
+            case 'R':
+                collidingX = first.rect.x + first.rect.width;
+                collidingY = first.rect.y + DIRWIDTH/2;
+                break;
+        }
+
+        for(int i = snake.size()-1; i > 1; i--)
+                if(snake.get(i).rect.contains(collidingX, collidingY) && first.rect.width >= DIRWIDTH/2 &&
+                    first.rect.height >= DIRWIDTH/2 && snake.get(i).rect.width >= DIRWIDTH/2 &&
+                        snake.get(i).rect.height >= DIRWIDTH/2)
+                    return true;
+        return false;
     }
 
     private void checkGameOver() {

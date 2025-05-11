@@ -73,17 +73,12 @@ public class Game implements Runnable {
     public synchronized void stop() {
         if(!running)
             return;
-        try {
-            logger.info("Game ended");
-            running = false;
-            win.setVisible(false);
-            win.dispose();
 
-            thread.join();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-            Thread.currentThread().interrupt();
-        }
+        logger.info("Game ended");
+        running = false;
+        win.setVisible(false);
+        win.dispose();
+
     }
 
     @Override
@@ -125,10 +120,14 @@ public class Game implements Runnable {
     }
     
     public void tick() {
+        if(!running)
+            return;
         State.getState().tick();
     }
 
     public void render() {
+        if(!running)
+            return;
         if(bufferStrategy == null)
             win.getCanvas().createBufferStrategy(3);
 

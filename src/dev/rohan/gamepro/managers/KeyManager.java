@@ -4,7 +4,7 @@ import java.awt.event.*;
 
 public class KeyManager implements KeyListener {
 
-    private char direction;
+    private char direction = 'R';     //default direction
     private boolean switchState;
     private long lastPress = 0;
 

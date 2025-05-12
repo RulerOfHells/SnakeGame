@@ -1,4 +1,4 @@
-package dev.rohan.gamepro;
+package dev.rohan.gamepro.managers;
 
 import java.awt.event.MouseEvent;
 

@@ -6,11 +6,14 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 public class Assets {   //Utility class to provide static resources
+
+    public static final BufferedImage[] menu = new BufferedImage[2];
+    public static final BufferedImage[] pause = new BufferedImage[3];
+
     private Assets() {
         throw new IllegalStateException("Utility class");
     }
-    static final BufferedImage[] menu = new BufferedImage[2];
-    static final BufferedImage[] pause = new BufferedImage[3];
+    
     static void init() {
         try {
             menu[0] = ImageIO.read(Assets.class.getResourceAsStream("/textures/start1_cpy.png"));

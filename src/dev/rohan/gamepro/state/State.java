@@ -1,4 +1,4 @@
-package dev.rohan.gamepro;
+package dev.rohan.gamepro.state;
 
 import java.awt.Graphics;
 

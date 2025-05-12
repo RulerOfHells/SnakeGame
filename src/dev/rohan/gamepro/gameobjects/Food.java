@@ -2,6 +2,7 @@ package dev.rohan.gamepro.gameobjects;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Rectangle;
 import java.util.Random;
 
 public class Food {
@@ -42,19 +43,15 @@ public class Food {
        }
     }
 
-    public void unPlaceFood(int x, int y) {         //remove the food which snake eats  - collision
+    public boolean unPlaceFood(Rectangle snakeHead) {         //remove the food which snake eats  - collision
         for(int i = 0; i < foodX.length; i++) {
-            if(x == foodX[i] && y == foodY[i])
+            if(snakeHead.contains(foodX[i], foodY[i])) {
                 foodX[i] = foodY[i] = -1;
+                count++;
+                return true;
+            }
         }
-        if(++count == AMT) renew();
-    }
-
-    public int[] getFoodX() {
-        return foodX;
-    }
-
-    public int[] getFoodY() {
-        return foodY;
+        if(count == AMT) renew();
+        return false;
     }
 }

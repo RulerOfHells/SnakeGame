@@ -120,34 +120,28 @@ public class Snake2 {
     }
 
     private void collide() {         //Eats the food on collision
-        int[] foodX = handler.getFood().getFoodX();
-        int[] foodY = handler.getFood().getFoodY();
-
-        for(int i = 0; i < foodX.length; i++) {     //Loops through each food and check if snake collides
-            var first = snake.getFirst();
-            var last = snake.getLast();
-            if(first.rect.contains(foodX[i], foodY[i])) {
-                handler.getFood().unPlaceFood(foodX[i], foodY[i]);
-                count++;
-                switch(last.direction) {
-                    case 'U':
-                        last.rect.height += DIRWIDTH;
+        var first = snake.getFirst();
+        var last = snake.getLast();
+        if (handler.getFood().unPlaceFood(first.rect)) { // If snake eats food
+            count++;
+            switch (last.direction) {
+                case 'U':
+                    last.rect.height += DIRWIDTH;
                     break;
 
-                    case 'D':
-                        last.rect.y -= DIRWIDTH;
-                        last.rect.height += DIRWIDTH;
-                    break;
-                    
-                    case 'L':
-                        last.rect.width += DIRWIDTH;
+                case 'D':
+                    last.rect.y -= DIRWIDTH;
+                    last.rect.height += DIRWIDTH;
                     break;
 
-                    case 'R':
-                        last.rect.x -= DIRWIDTH;
-                        last.rect.width += DIRWIDTH;
+                case 'L':
+                    last.rect.width += DIRWIDTH;
                     break;
-                }
+
+                case 'R':
+                    last.rect.x -= DIRWIDTH;
+                    last.rect.width += DIRWIDTH;
+                    break;
             }
         }
     }

@@ -1,8 +1,12 @@
-package dev.rohan.gamepro;
+package dev.rohan.gamepro.state;
 
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
+
+import dev.rohan.gamepro.gameobjects.Food;
+import dev.rohan.gamepro.gameobjects.Snake2;
+import dev.rohan.gamepro.Handler;
 
 public class GameState extends State {      //Implementation of State to display game contents
 
@@ -28,7 +32,7 @@ public class GameState extends State {      //Implementation of State to display
            handler.getGame().stop();
 
         if(snake.isGameOver()) {
-            ((GameOver) handler.getGame().getGameOverState()).setScore(snake.getCount());
+            ((GameOverState) handler.getGame().getGameOverState()).setScore(snake.getCount());
             State.setState(handler.getGame().getGameOverState());
         }
     }

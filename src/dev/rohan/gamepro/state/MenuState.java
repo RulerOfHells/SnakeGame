@@ -1,7 +1,10 @@
-package dev.rohan.gamepro;
+package dev.rohan.gamepro.state;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+
+import dev.rohan.gamepro.Assets;
+import dev.rohan.gamepro.Handler;
 
 public class MenuState extends State {
 

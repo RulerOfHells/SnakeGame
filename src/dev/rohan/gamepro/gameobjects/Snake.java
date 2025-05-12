@@ -1,7 +1,10 @@
-package dev.rohan.gamepro;
+package dev.rohan.gamepro.gameobjects;
 
 import java.awt.Graphics;
 import java.awt.Rectangle;
+
+import dev.rohan.gamepro.Handler;
+
 import java.awt.Color;
 
 public class Snake {

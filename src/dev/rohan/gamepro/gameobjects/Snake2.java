@@ -1,10 +1,14 @@
-package dev.rohan.gamepro;
+package dev.rohan.gamepro.gameobjects;
 
-import static dev.rohan.gamepro.SnakeDirTile.DIRWIDTH;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.LinkedList;
+
+import dev.rohan.gamepro.Handler;
+
+import static dev.rohan.gamepro.gameobjects.SnakeDirTile.DIRWIDTH;
+
 import java.awt.Color;
 
 public class Snake2 {

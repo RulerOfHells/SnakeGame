@@ -1,14 +1,15 @@
-package dev.rohan.gamepro;
+package dev.rohan.gamepro.state;
 
 import java.awt.*;
+import dev.rohan.gamepro.Handler;
 
-public class GameOver extends State {       //Game overs when snake collides with game bounds
+public class GameOverState extends State {       //Game overs when snake collides with game bounds
     private int width;
     private int height;
     private int score;
     private Handler handler;
 
-    public GameOver(Handler handler, int width, int height, int score) {
+    public GameOverState(Handler handler, int width, int height, int score) {
         this.height = height;
         this.width = width;
         this.score = score;

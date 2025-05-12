@@ -4,6 +4,15 @@ import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
 import java.util.logging.Logger;
 
+import dev.rohan.gamepro.state.GameState;
+import dev.rohan.gamepro.state.State;
+import dev.rohan.gamepro.managers.KeyManager;
+import dev.rohan.gamepro.managers.MenuActionManager;
+import dev.rohan.gamepro.managers.MouseManager;
+import dev.rohan.gamepro.state.GameOverState;
+import dev.rohan.gamepro.state.MenuState;
+import dev.rohan.gamepro.state.PauseState;
+
 public class Game implements Runnable {
     private int width;
     private int height;
@@ -54,7 +63,7 @@ public class Game implements Runnable {
 
         gameState = new GameState(handler);
         menuState = new MenuState(handler);
-        gameOverState = new GameOver(handler, width, height, 0);
+        gameOverState = new GameOverState(handler, width, height, 0);
         pauseState = new PauseState(handler);
 
         State.setState(menuState);      //state to display when the game starts

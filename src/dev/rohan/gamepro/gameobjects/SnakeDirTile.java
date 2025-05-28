@@ -12,18 +12,28 @@ public class SnakeDirTile {
         this.direction = direction;
     }
 
-    public boolean update() {
+    public boolean update(int speed) {
+        int tmp = 0;
         switch(direction) {
             case 'U':
-                return 1 >= rect.height--;
+                tmp = rect.height;
+                rect.height -= speed;
+                return 1 >= (tmp);
             case 'D':
-                rect.y++;
-                return 1 >= rect.height--;
+                tmp = rect.height;
+                rect.y += speed;
+                rect.height -= speed;
+                return 1 >= (tmp);
             case 'L':
-                return 1 >= rect.width--;
+                tmp = rect.width;
+                rect.x -= speed;
+                rect.width -= speed;
+                return 1 >= (tmp);
             case 'R':
-                rect.x++;
-                return 1 >= rect.width--;
+                tmp = rect.width;
+                rect.x += speed;
+                rect.width -= speed;
+                return 1 >= (tmp);
         }
         return false;
     }

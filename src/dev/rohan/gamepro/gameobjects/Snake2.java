@@ -18,6 +18,7 @@ public class Snake2 {
     private Color snakeColor;
     private char dir;
     private int count;
+    private volatile int speed;
 
     public Snake2(Handler handler) {
         this.handler = handler;
@@ -26,6 +27,8 @@ public class Snake2 {
 
     public void reinit() {
         gameOver = false;
+        count = 0;
+        speed = 1;
         dir = 'R';
         snakeColor = Color.BLUE;
         snake = new LinkedList<>();
@@ -82,7 +85,7 @@ public class Snake2 {
                     Rectangle rect = new Rectangle(first.rect.x + (first.direction == 'L' ? 0 : first.rect.width - DIRWIDTH), first.rect.y + DIRWIDTH, DIRWIDTH, 1);
                     snake.addFirst(new SnakeDirTile(rect, dir));
                 } else {
-                    first.rect.height++;
+                    first.rect.height += speed;
                 }
             break;
 
@@ -91,18 +94,18 @@ public class Snake2 {
                     Rectangle rect = new Rectangle(first.rect.x + (first.direction == 'L' ? 0 : first.rect.width - DIRWIDTH), first.rect.y, DIRWIDTH, 1);
                     snake.addFirst(new SnakeDirTile(rect, dir));
                 } else {
-                    first.rect.y--;
-                    first.rect.height++;
+                    first.rect.y -= speed;
+                    first.rect.height += speed;
                 }
             break;
 
             case 'L':
                 if(first.rect.width >= DIRWIDTH) {
-                    Rectangle rect = new Rectangle(first.rect.x, first.rect.y + (first.direction == 'U' ? 0 : first.rect.height - DIRWIDTH), 1, DIRWIDTH);
+                    Rectangle rect = new Rectangle(first.rect.x - speed, first.rect.y + (first.direction == 'U' ? 0 : first.rect.height - DIRWIDTH), speed, DIRWIDTH);
                     snake.addFirst(new SnakeDirTile(rect, dir));
                 } else {
-                    first.rect.x--;
-                    first.rect.width++;
+                    first.rect.x -= speed;
+                    first.rect.width += speed;
                 }
             break;
 
@@ -111,11 +114,11 @@ public class Snake2 {
                     Rectangle rect = new Rectangle(first.rect.x + first.rect.width, first.rect.y + (first.direction == 'U' ? 0 : first.rect.height - DIRWIDTH), 1, DIRWIDTH);
                     snake.addFirst(new SnakeDirTile(rect, dir));
                 } else {
-                    first.rect.width++;
+                    first.rect.width += speed;
                 }
             break;
         }
-        if (last.update())
+        if (last.update(speed))
             snake.removeLast();
     }
 
@@ -152,6 +155,7 @@ public class Snake2 {
 
     public void tick() {
         dir = handler.getKeyManager().getDirection();
+        speed = (count / 20 == 0)? 1 : (count / 20) + 1;
         move();
         collide();
         checkGameOver();

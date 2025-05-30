@@ -1,17 +1,16 @@
 package dev.rohan.gamepro;
 
 import dev.rohan.gamepro.gameobjects.Food;
-// import dev.rohan.gamepro.gameobjects.Snake;
 import dev.rohan.gamepro.gameobjects.Snake2;
 import dev.rohan.gamepro.managers.KeyManager;
 import dev.rohan.gamepro.managers.MenuActionManager;
 import dev.rohan.gamepro.managers.MouseManager;
 
 public class Handler {      //Helper class to provide smooth transition between states
-    private Game game;
+    private final Game game;
     // private Snake snake;
-    private Snake2 snake2;
-    private Food food;
+    private final Snake2 snake2;
+    private final Food food;
 
     public Handler(Game game) {
         this.game = game;

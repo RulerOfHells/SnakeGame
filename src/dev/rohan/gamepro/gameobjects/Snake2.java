@@ -1,19 +1,16 @@
 package dev.rohan.gamepro.gameobjects;
 
+import dev.rohan.gamepro.Handler;
+import static dev.rohan.gamepro.gameobjects.SnakeDirTile.DIRWIDTH;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
-import dev.rohan.gamepro.Handler;
-
-import static dev.rohan.gamepro.gameobjects.SnakeDirTile.DIRWIDTH;
-
-import java.awt.Color;
-
 public class Snake2 {
     private LinkedList<SnakeDirTile> snake;
-    private Handler handler;
+    private final Handler handler;
     private boolean gameOver;
     private Color snakeColor;
     private char dir;
@@ -168,9 +165,25 @@ public class Snake2 {
     public void render(Graphics g) {        //Displays snake on screen
         final Graphics2D graphics2D = (Graphics2D) g;
         graphics2D.setColor(snakeColor);
-        for (var body : snake) {
+        for (var body : snake) {    //rendering body
             final Rectangle tile = body.rect;
             graphics2D.fillRect(tile.x, tile.y, tile.width, tile.height);
+        }
+        
+        graphics2D.setColor(Color.RED);
+        final SnakeDirTile first = snake.getFirst();
+        switch(first.direction) { //rendering head
+            case 'U': case 'L':
+                graphics2D.fillRect(first.rect.x, first.rect.y, DIRWIDTH, DIRWIDTH);
+                break;
+
+            case 'D':
+                graphics2D.fillRect(first.rect.x, first.rect.y + first.rect.height - DIRWIDTH, DIRWIDTH, DIRWIDTH);
+                break;
+
+            case 'R':
+                graphics2D.fillRect(first.rect.x + first.rect.width - DIRWIDTH, first.rect.y, DIRWIDTH, DIRWIDTH);
+                break;
         }
     }
 }

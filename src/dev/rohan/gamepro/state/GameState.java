@@ -1,19 +1,18 @@
 package dev.rohan.gamepro.state;
 
+import dev.rohan.gamepro.Handler;
+import dev.rohan.gamepro.gameobjects.Food;
+import dev.rohan.gamepro.gameobjects.Snake2;
 import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 
-import dev.rohan.gamepro.gameobjects.Food;
-import dev.rohan.gamepro.gameobjects.Snake2;
-import dev.rohan.gamepro.Handler;
-
 public class GameState extends State {      //Implementation of State to display game contents
 
-    private Handler handler;
+    private final Handler handler;
     // private Snake snake;
-    private Snake2 snake;
-    private Food food;
+    private final Snake2 snake;
+    private final Food food;
 
     public GameState(Handler handler) {
         this.handler = handler;

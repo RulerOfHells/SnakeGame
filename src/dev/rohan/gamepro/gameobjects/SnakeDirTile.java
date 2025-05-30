@@ -26,7 +26,6 @@ public class SnakeDirTile {
                 return 1 >= (tmp);
             case 'L':
                 tmp = rect.width;
-                rect.x -= speed;
                 rect.width -= speed;
                 return 1 >= (tmp);
             case 'R':

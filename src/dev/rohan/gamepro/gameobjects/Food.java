@@ -8,11 +8,11 @@ import java.util.Random;
 public class Food {
     private static final int AMT = 20;      //game starts with these amount of food
     private int count = 0;
-    private int[] foodX;
-    private int[] foodY;
-    private int foodWidth;
-    private int foodHeight;
-    private Random random;
+    private final int[] foodX;
+    private final int[] foodY;
+    private final int foodWidth;
+    private final int foodHeight;
+    private final Random random;
 
     public Food() {
         foodX = new int[AMT];
@@ -51,7 +51,7 @@ public class Food {
                 return true;
             }
         }
-        if(count == AMT) renew();
+        if(count == AMT) renew();   // reset food if all eaten
         return false;
     }
 }

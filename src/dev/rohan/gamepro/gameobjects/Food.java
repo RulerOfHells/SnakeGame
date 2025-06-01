@@ -5,7 +5,7 @@ import java.awt.Graphics;
 import java.awt.Rectangle;
 import java.util.Random;
 
-public class Food {
+public final class Food {
     private static final int AMT = 20;      //game starts with these amount of food
     private int count = 0;
     private final int[] foodX;

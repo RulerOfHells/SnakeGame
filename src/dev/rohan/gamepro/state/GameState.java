@@ -45,6 +45,11 @@ public class GameState extends State {      //Implementation of State to display
         g.setColor(Color.GREEN);
         g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 20));
         g.drawString("Score: "+snake.getCount(), 5, 20);
+
+        //draw level
+        g.setColor(Color.ORANGE);
+        g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 15));
+        g.drawString("Level: "+snake.getSpeed(), handler.getWidth()-80, 15);
     }
 
     @Override

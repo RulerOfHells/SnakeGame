@@ -79,44 +79,70 @@ public final class Snake2 {
     private void move() {                    //Handles snake movements
         final SnakeDirTile first = snake.getFirst();
         final SnakeDirTile last = snake.getLast();
-        switch(dir) {
-            case 'D':
-                if(first.rect.height >= DIRWIDTH) {
-                    Rectangle rect = new Rectangle(first.rect.x + (first.direction == 'L' ? 0 : first.rect.width - DIRWIDTH), first.rect.y + DIRWIDTH, DIRWIDTH, 1);
-                    snake.addFirst(new SnakeDirTile(rect, dir));
-                } else {
-                    first.rect.height += speed;
-                }
-            break;
+        switch (dir) {
+            case 'R':
+                if (first.direction == 'R')
+                    first.rect.width += speed;
 
-            case 'U':
-                if(first.rect.height >= DIRWIDTH) {
-                    Rectangle rect = new Rectangle(first.rect.x + (first.direction == 'L' ? 0 : first.rect.width - DIRWIDTH), first.rect.y, DIRWIDTH, 1);
-                    snake.addFirst(new SnakeDirTile(rect, dir));
-                } else {
+                else if (first.rect.height >= 15) {
+                    Rectangle r = new Rectangle(first.rect.x + 15, first.rect.y + ((first.direction == 'U')? 0 : first.rect.height - 15), 1, 15);
+                    snake.addFirst(new SnakeDirTile(r, dir));
+                }
+                else if(first.direction == 'U') {
                     first.rect.y -= speed;
                     first.rect.height += speed;
                 }
-            break;
+                else
+                    first.rect.height += speed;
+                break;
 
             case 'L':
-                if(first.rect.width >= DIRWIDTH) {
-                    Rectangle rect = new Rectangle(first.rect.x - speed, first.rect.y + (first.direction == 'U' ? 0 : first.rect.height - DIRWIDTH), speed, DIRWIDTH);
-                    snake.addFirst(new SnakeDirTile(rect, dir));
-                } else {
+                if (first.direction == 'L') {
+                    first.rect.x -= speed;
+                    first.rect.width += speed;
+                } else if (first.rect.height >= 15) {
+                    Rectangle r = new Rectangle(first.rect.x, first.rect.y + ((first.direction == 'U') ? 0 : first.rect.height - 15), 1, 15);
+                    snake.addFirst(new SnakeDirTile(r, dir));
+                }
+                else if(first.direction == 'U') {
+                    first.rect.y -= speed;
+                    first.rect.height += speed;
+                }
+                else
+                    first.rect.height += speed;
+                break;
+
+            case 'U':
+                if (first.direction == 'U') {
+                    first.rect.y -= speed;
+                    first.rect.height += speed;
+                } else if (first.rect.width >= 15) {
+                    Rectangle r = new Rectangle(first.rect.x + ((first.direction == 'L') ? 0 : first.rect.width - 15), first.rect.y, 15, 1);
+                    snake.addFirst(new SnakeDirTile(r, dir));
+                }
+                else if(first.direction == 'R')
+                    first.rect.width += speed;
+                else {
                     first.rect.x -= speed;
                     first.rect.width += speed;
                 }
-            break;
+                break;
 
-            case 'R':
-                if(first.rect.width >= DIRWIDTH) {
-                    Rectangle rect = new Rectangle(first.rect.x + first.rect.width, first.rect.y + (first.direction == 'U' ? 0 : first.rect.height - DIRWIDTH), 1, DIRWIDTH);
-                    snake.addFirst(new SnakeDirTile(rect, dir));
-                } else {
+            case 'D':
+                if (first.direction == 'D')
+                    first.rect.height += speed;
+
+                else if (first.rect.width >= 15) {
+                    Rectangle r = new Rectangle(first.rect.x + ((first.direction == 'L') ? 0 : first.rect.width - 15), first.rect.y + 15, 15,1);
+                    snake.addFirst(new SnakeDirTile(r, dir));
+                }
+                else if(first.direction == 'R')
+                    first.rect.width += speed;
+                else {
+                    first.rect.x -= speed;
                     first.rect.width += speed;
                 }
-            break;
+                break;
         }
         if (last.update(speed))
             snake.removeLast();

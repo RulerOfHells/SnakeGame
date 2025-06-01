@@ -13,7 +13,7 @@ public class SnakeDirTile {
     }
 
     public boolean update(int speed) {
-        int tmp = 0;
+        int tmp;
         switch(direction) {
             case 'U':
                 tmp = rect.height;

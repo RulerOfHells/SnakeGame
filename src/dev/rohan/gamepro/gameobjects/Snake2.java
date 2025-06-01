@@ -8,7 +8,7 @@ import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.util.LinkedList;
 
-public class Snake2 {
+public final class Snake2 {
     private LinkedList<SnakeDirTile> snake;
     private final Handler handler;
     private boolean gameOver;
@@ -41,7 +41,7 @@ public class Snake2 {
         int collidingX = 0, collidingY = 0;
         SnakeDirTile first = snake.getFirst();
         
-        switch(first.direction) {
+        switch(first.direction) {   //Determines the colliding point based on the direction of the snake
             case 'U':
                 collidingX = first.rect.x + DIRWIDTH/2;
                 collidingY = first.rect.y;
@@ -61,11 +61,14 @@ public class Snake2 {
                 break;
         }
 
-        for(int i = snake.size()-1; i > 1; i--)
-                if(snake.get(i).rect.contains(collidingX, collidingY) && first.rect.width >= DIRWIDTH/2 &&
-                    first.rect.height >= DIRWIDTH/2 && snake.get(i).rect.width >= DIRWIDTH/2 &&
-                        snake.get(i).rect.height >= DIRWIDTH/2)
-                    return true;
+        for(int i = snake.size()-1; i > 1; i--) //Checks if the colliding point is inside any of the snake's body parts
+
+            if(snake.get(i).rect.contains(collidingX, collidingY) && first.rect.width >= DIRWIDTH/2 &&
+                first.rect.height >= DIRWIDTH/2 && snake.get(i).rect.width >= DIRWIDTH/2 &&
+                snake.get(i).rect.height >= DIRWIDTH/2)
+
+                return true;
+
         return false;
     }
 
@@ -145,11 +148,7 @@ public class Snake2 {
             }
         }
     }
-
-    public int getCount() {
-        return count;
-    }
-
+    
     public void tick() {
         dir = handler.getKeyManager().getDirection();
         speed = (count / 20 == 0)? 1 : (count / 20) + 1;
@@ -157,11 +156,7 @@ public class Snake2 {
         collide();
         checkGameOver();
     }
-
-    public boolean isGameOver() {
-        return gameOver;
-    }
-
+    
     public void render(Graphics g) {        //Displays snake on screen
         final Graphics2D graphics2D = (Graphics2D) g;
         graphics2D.setColor(snakeColor);
@@ -174,16 +169,28 @@ public class Snake2 {
         final SnakeDirTile first = snake.getFirst();
         switch(first.direction) { //rendering head
             case 'U': case 'L':
-                graphics2D.fillRect(first.rect.x, first.rect.y, DIRWIDTH, DIRWIDTH);
-                break;
-
+            graphics2D.fillRect(first.rect.x, first.rect.y, DIRWIDTH, DIRWIDTH);
+            break;
+            
             case 'D':
-                graphics2D.fillRect(first.rect.x, first.rect.y + first.rect.height - DIRWIDTH, DIRWIDTH, DIRWIDTH);
-                break;
-
+            graphics2D.fillRect(first.rect.x, first.rect.y + first.rect.height - DIRWIDTH, DIRWIDTH, DIRWIDTH);
+            break;
+            
             case 'R':
-                graphics2D.fillRect(first.rect.x + first.rect.width - DIRWIDTH, first.rect.y, DIRWIDTH, DIRWIDTH);
-                break;
+            graphics2D.fillRect(first.rect.x + first.rect.width - DIRWIDTH, first.rect.y, DIRWIDTH, DIRWIDTH);
+            break;
         }
+    }
+
+    public boolean isGameOver() {
+        return gameOver;
+    }
+
+    public int getCount() {
+        return count;
+    }
+
+    public int getSpeed() {
+        return speed;
     }
 }

@@ -2,7 +2,6 @@ package dev.rohan.gamepro;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 
 public class Assets {   //Utility class to provide static resources

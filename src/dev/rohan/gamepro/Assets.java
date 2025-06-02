@@ -8,6 +8,7 @@ public class Assets {   //Utility class to provide static resources
 
     public static final BufferedImage[] menu = new BufferedImage[2];
     public static final BufferedImage[] pause = new BufferedImage[3];
+    public static BufferedImage apple;
 
     private Assets() {
         throw new IllegalStateException("Utility class");
@@ -21,6 +22,8 @@ public class Assets {   //Utility class to provide static resources
             pause[0] = ImageIO.read(Assets.class.getResourceAsStream("/textures/pause_cpy.png"));
             pause[1] = ImageIO.read(Assets.class.getResourceAsStream("/textures/pause_cpy1.png"));
             pause[2] = ImageIO.read(Assets.class.getResourceAsStream("/textures/pause_cpy2.png"));
+            apple = ImageIO.read(Assets.class.getResourceAsStream("/textures/Graphics/apple.png"));
+
         } catch (IOException e) {
             e.printStackTrace();
         }

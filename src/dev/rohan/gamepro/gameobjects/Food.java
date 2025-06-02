@@ -1,5 +1,6 @@
 package dev.rohan.gamepro.gameobjects;
 
+import dev.rohan.gamepro.Assets;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -17,8 +18,8 @@ public final class Food {
     public Food() {
         foodX = new int[AMT];
         foodY = new int[AMT];
-        foodWidth = 5;
-        foodHeight = 5;
+        foodWidth = 40;
+        foodHeight = 40;
         count = 0;
 
         random = new Random();
@@ -38,7 +39,8 @@ public final class Food {
         for(int i = 0; i < AMT; i++) {
             if(foodX[i] >= 0 && foodY[i] >= 0) {
                 g.setColor(Color.WHITE);
-                g.fillRect(foodX[i], foodY[i], foodWidth, foodHeight);
+                // g.fillRect(foodX[i], foodY[i], foodWidth, foodHeight);
+                g.drawImage(Assets.apple, foodX[i] - foodWidth/2, foodY[i] - foodHeight/2, foodWidth, foodHeight, null);
             }
        }
     }

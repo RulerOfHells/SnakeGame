@@ -18,8 +18,8 @@ public final class Food {
     public Food() {
         foodX = new int[AMT];
         foodY = new int[AMT];
-        foodWidth = 40;
-        foodHeight = 40;
+        foodWidth = 32;
+        foodHeight = 32;
         count = 0;
 
         random = new Random();

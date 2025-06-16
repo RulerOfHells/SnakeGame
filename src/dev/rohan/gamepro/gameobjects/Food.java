@@ -40,7 +40,7 @@ public final class Food {
             if(foodX[i] >= 0 && foodY[i] >= 0) {
                 g.setColor(Color.WHITE);
                 // g.fillRect(foodX[i], foodY[i], foodWidth, foodHeight);
-                g.drawImage(Assets.apple, foodX[i] - foodWidth/2, foodY[i] - foodHeight/2, foodWidth, foodHeight, null);
+                g.drawImage(Assets.apple[0], foodX[i] - foodWidth/2, foodY[i] - foodHeight/2, foodWidth, foodHeight, null);
             }
        }
     }

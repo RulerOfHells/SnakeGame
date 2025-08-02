@@ -3,7 +3,6 @@ package dev.rohan.gamepro.gameobjects;
 import dev.rohan.gamepro.Assets;
 import dev.rohan.gamepro.Handler;
 import static dev.rohan.gamepro.gameobjects.SnakeDirTile.DIRWIDTH;
-import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -13,7 +12,7 @@ public final class Snake2 {
     private LinkedList<SnakeDirTile> snake;
     private final Handler handler;
     private boolean gameOver;
-    private Color snakeColor;
+    // private Color snakeColor;
     private char dir;
     private int count;
     private volatile int speed;
@@ -28,7 +27,7 @@ public final class Snake2 {
         count = 0;
         speed = 1;
         dir = 'R';
-        snakeColor = Color.BLUE;
+        // snakeColor = Color.BLUE;
         snake = new LinkedList<>();
         snake.add(new SnakeDirTile(new Rectangle(100, 100, DIRWIDTH, DIRWIDTH), dir));
     }
@@ -186,120 +185,79 @@ public final class Snake2 {
     
     public void render(Graphics g) { // Displays snake on screen
         final Graphics2D graphics2D = (Graphics2D) g;
-
-        for (int i = snake.size() - 1; i >= 1; i--) { // thinking
+        for(int i = snake.size()-1; i > 0; i--) {
             SnakeDirTile tile = snake.get(i);
-
-            switch (tile.direction) {
+            switch(tile.direction) {
                 case 'U':
-                    int j;
-                    for (j = tile.rect.y; j <= (tile.rect.y + tile.rect.height - DIRWIDTH); j += DIRWIDTH) {
-                        if (j == tile.rect.y && snake.get(i - 1).direction == 'L')
-                            g.drawImage(Assets.snakeBody[4], tile.rect.x, j, DIRWIDTH, DIRWIDTH, null);
-                        else if (j == tile.rect.y && snake.get(i - 1).direction == 'R')
-                            g.drawImage(Assets.snakeBody[5], tile.rect.x, j, DIRWIDTH, DIRWIDTH, null);
-                        else
-                            g.drawImage(Assets.snakeBody[1], tile.rect.x, j, DIRWIDTH, DIRWIDTH, null);
-                    }
-                    int t = (tile.rect.y + tile.rect.height) - j;
-                    if (t > 0)
-                        g.drawImage(Assets.snakeBody[1], tile.rect.x, j, DIRWIDTH, t, null);
+                    g.drawImage(Assets.snakeBody[1], tile.rect.x, tile.rect.y+DIRWIDTH, tile.rect.width, tile.rect.height-DIRWIDTH, null);
                 break;
 
                 case 'D':
-                    for (j = (tile.rect.y + tile.rect.height - DIRWIDTH); j >= tile.rect.y + DIRWIDTH; j -= DIRWIDTH) {
-                        if (j == (tile.rect.y + tile.rect.height - DIRWIDTH) && snake.get(i - 1).direction == 'L')
-                            g.drawImage(Assets.snakeBody[2], tile.rect.x, j, DIRWIDTH, DIRWIDTH, null);
-                        else if (j == (tile.rect.y + tile.rect.height - DIRWIDTH) && snake.get(i - 1).direction == 'R')
-                            g.drawImage(Assets.snakeBody[3], tile.rect.x, j, DIRWIDTH, DIRWIDTH, null);
-                        else
-                            g.drawImage(Assets.snakeBody[1], tile.rect.x, j, DIRWIDTH, DIRWIDTH, null);
-                    }
-                    t = j - tile.rect.y;
-                    if (t > 0)
-                        g.drawImage(Assets.snakeBody[1], tile.rect.x, tile.rect.y, DIRWIDTH, t, null);
+                    g.drawImage(Assets.snakeBody[1], tile.rect.x, tile.rect.y, tile.rect.width, tile.rect.height-DIRWIDTH, null);
                 break;
 
                 case 'L':
-                    for (j = tile.rect.x; j <= (tile.rect.x + tile.rect.width - DIRWIDTH); j += DIRWIDTH) {
-                        if (j == tile.rect.x && snake.get(i - 1).direction == 'U')
-                            g.drawImage(Assets.snakeBody[3], j, tile.rect.y, DIRWIDTH, DIRWIDTH, null);
-                        else if (j == tile.rect.x && snake.get(i - 1).direction == 'D')
-                            g.drawImage(Assets.snakeBody[5], j, tile.rect.y, DIRWIDTH, DIRWIDTH, null);
-                        else
-                            g.drawImage(Assets.snakeBody[0], j, tile.rect.y, DIRWIDTH, DIRWIDTH, null);
-                    }
-                    t = (tile.rect.x + tile.rect.width) - j;
-                    if (t > 0)
-                        g.drawImage(Assets.snakeBody[0], j, tile.rect.y, t, DIRWIDTH, null);
+                    g.drawImage(Assets.snakeBody[0], tile.rect.x+DIRWIDTH, tile.rect.y, tile.rect.width-DIRWIDTH, tile.rect.height, null);
                 break;
 
                 case 'R':
-                    for (j = (tile.rect.x + tile.rect.width - DIRWIDTH); j >= tile.rect.x + DIRWIDTH; j -= DIRWIDTH) {
-                        if (j == (tile.rect.x + tile.rect.width - DIRWIDTH) && snake.get(i - 1).direction == 'U')
-                            g.drawImage(Assets.snakeBody[2], j, tile.rect.y, DIRWIDTH, DIRWIDTH, null);
-                        else if (j == (tile.rect.x + tile.rect.width - DIRWIDTH) && snake.get(i - 1).direction == 'D')
-                            g.drawImage(Assets.snakeBody[4], j, tile.rect.y, DIRWIDTH, DIRWIDTH, null);
-                        else
-                            g.drawImage(Assets.snakeBody[0], j, tile.rect.y, DIRWIDTH, DIRWIDTH, null);
-                    }
-                    t = j - tile.rect.x;
-                    if (t > 0)
-                        g.drawImage(Assets.snakeBody[0], tile.rect.x, tile.rect.y, t, DIRWIDTH, null);
+                    g.drawImage(Assets.snakeBody[0], tile.rect.x, tile.rect.y, tile.rect.width-DIRWIDTH, tile.rect.height, null);
                 break;
             }
         }
-
-        final SnakeDirTile first = snake.getFirst();
-        switch (first.direction) { // rendering head
+        SnakeDirTile tile = snake.getFirst();
+        switch(tile.direction) {
             case 'U':
-                int i;
-                for (i = first.rect.y; i <= (first.rect.y + first.rect.height - DIRWIDTH); i += DIRWIDTH) {
-                    if (i == first.rect.y)
-                        graphics2D.drawImage(Assets.snakeHead[0], first.rect.x, i, DIRWIDTH, DIRWIDTH, null);
-                    else
-                        graphics2D.drawImage(Assets.snakeBody[1], first.rect.x, i, DIRWIDTH, DIRWIDTH, null);
-                }
-                int t = (first.rect.y + first.rect.height) - i;
-                if (t > 0)
-                    graphics2D.drawImage(Assets.snakeBody[1], first.rect.x, i, DIRWIDTH, t, null);
+                g.drawImage(Assets.snakeHead[0], tile.rect.x, tile.rect.y, DIRWIDTH, DIRWIDTH, null);
+                g.drawImage(Assets.snakeBody[1], tile.rect.x, tile.rect.y+DIRWIDTH, tile.rect.width, tile.rect.height-DIRWIDTH, null);
             break;
 
             case 'D':
-                for (i = (first.rect.y + first.rect.height - DIRWIDTH); i >= first.rect.y + DIRWIDTH; i -= DIRWIDTH) {
-                    if (i == (first.rect.y + first.rect.height - DIRWIDTH))
-                        graphics2D.drawImage(Assets.snakeHead[1], first.rect.x, i, DIRWIDTH, DIRWIDTH, null);
-                    else
-                        graphics2D.drawImage(Assets.snakeBody[1], first.rect.x, i, DIRWIDTH, DIRWIDTH, null);
-                }
-                t = i - first.rect.y;
-                if (t > 0)
-                    graphics2D.drawImage(Assets.snakeBody[1], first.rect.x, first.rect.y, DIRWIDTH, t, null);
+                g.drawImage(Assets.snakeHead[1], tile.rect.x, tile.rect.y + tile.rect.height - DIRWIDTH, DIRWIDTH, DIRWIDTH, null);
+                g.drawImage(Assets.snakeBody[1], tile.rect.x, tile.rect.y, tile.rect.width, tile.rect.height - DIRWIDTH, null);
             break;
 
             case 'L':
-                for (i = first.rect.x; i <= (first.rect.x + first.rect.width - DIRWIDTH); i += DIRWIDTH) {
-                    if (i == first.rect.x)
-                        graphics2D.drawImage(Assets.snakeHead[2], i, first.rect.y, DIRWIDTH, DIRWIDTH, null);
-                    else
-                        graphics2D.drawImage(Assets.snakeBody[0], i, first.rect.y, DIRWIDTH, DIRWIDTH, null);
-                }
-                t = (first.rect.x + first.rect.width) - i;
-                if (t > 0)
-                    graphics2D.drawImage(Assets.snakeBody[0], i, first.rect.y, t, DIRWIDTH, null);
+                g.drawImage(Assets.snakeHead[2], tile.rect.x, tile.rect.y, DIRWIDTH, DIRWIDTH, null);
+                g.drawImage(Assets.snakeBody[0], tile.rect.x+DIRWIDTH, tile.rect.y, tile.rect.width-DIRWIDTH, tile.rect.height, null);
             break;
 
             case 'R':
-                for (i = (first.rect.x + first.rect.width - DIRWIDTH); i >= first.rect.x + DIRWIDTH; i -= DIRWIDTH) {
-                    if (i == (first.rect.x + first.rect.width - DIRWIDTH))
-                        graphics2D.drawImage(Assets.snakeHead[3], i, first.rect.y, DIRWIDTH, DIRWIDTH, null);
-                    else
-                        graphics2D.drawImage(Assets.snakeBody[0], i, first.rect.y, DIRWIDTH, DIRWIDTH, null);
-                }
-                t = i - first.rect.x;
-                if (t > 0)
-                    graphics2D.drawImage(Assets.snakeBody[0], first.rect.x, first.rect.y, t, DIRWIDTH, null);
+                g.drawImage(Assets.snakeHead[3], tile.rect.x+tile.rect.width-DIRWIDTH, tile.rect.y, DIRWIDTH, DIRWIDTH, null);
+                g.drawImage(Assets.snakeBody[0], tile.rect.x, tile.rect.y, tile.rect.width-DIRWIDTH, tile.rect.height, null);
             break;
+        }
+        for(int i = snake.size()-1; i > 0; i--) {
+            tile = snake.get(i);
+            switch(tile.direction) {
+                case 'U':
+                    if(snake.get(i-1).direction == 'L' && tile.rect.height >= DIRWIDTH)
+                        g.drawImage(Assets.snakeBody[4], tile.rect.x, tile.rect.y, DIRWIDTH, DIRWIDTH, null);
+                    else if(tile.rect.height >= DIRWIDTH)
+                        g.drawImage(Assets.snakeBody[5], tile.rect.x, tile.rect.y, DIRWIDTH, DIRWIDTH, null);
+                break;
+
+                case 'D':
+                    if(snake.get(i-1).direction == 'L' && tile.rect.height >= DIRWIDTH)
+                        g.drawImage(Assets.snakeBody[2], tile.rect.x, tile.rect.y+tile.rect.height-DIRWIDTH, DIRWIDTH, DIRWIDTH, null);
+                    else if(tile.rect.height >= DIRWIDTH)
+                        g.drawImage(Assets.snakeBody[3], tile.rect.x, tile.rect.y+tile.rect.height-DIRWIDTH, DIRWIDTH, DIRWIDTH, null);
+                break;
+
+                case 'L':
+                    if(snake.get(i-1).direction == 'U' && tile.rect.width >= DIRWIDTH)
+                        g.drawImage(Assets.snakeBody[3], tile.rect.x, tile.rect.y, DIRWIDTH, DIRWIDTH, null);
+                    else if(tile.rect.width >= DIRWIDTH)
+                        g.drawImage(Assets.snakeBody[5], tile.rect.x, tile.rect.y, DIRWIDTH, DIRWIDTH, null);
+                break;
+
+                case 'R':
+                    if(snake.get(i-1).direction == 'U' && tile.rect.width >= DIRWIDTH)
+                        g.drawImage(Assets.snakeBody[2], tile.rect.x+tile.rect.width-DIRWIDTH, tile.rect.y, DIRWIDTH, DIRWIDTH, null);
+                    else if(tile.rect.width >= DIRWIDTH)
+                        g.drawImage(Assets.snakeBody[4], tile.rect.x+tile.rect.width-DIRWIDTH, tile.rect.y, DIRWIDTH, DIRWIDTH, null);
+                break;
+            }
         }
     }
 

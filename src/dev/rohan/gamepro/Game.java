@@ -1,33 +1,38 @@
 package dev.rohan.gamepro;
 
-import java.awt.Graphics;
-import java.awt.image.BufferStrategy;
-import java.util.logging.Logger;
-
-import dev.rohan.gamepro.state.GameState;
-import dev.rohan.gamepro.state.State;
 import dev.rohan.gamepro.managers.KeyManager;
 import dev.rohan.gamepro.managers.MenuActionManager;
 import dev.rohan.gamepro.managers.MouseManager;
 import dev.rohan.gamepro.state.GameOverState;
+import dev.rohan.gamepro.state.GameState;
 import dev.rohan.gamepro.state.MenuState;
 import dev.rohan.gamepro.state.PauseState;
+import dev.rohan.gamepro.state.State;
+import dev.rohan.gamepro.state.TestState;
+import java.awt.Graphics;
+import java.awt.image.BufferStrategy;
+import java.util.logging.Logger;
 
 public class Game implements Runnable {
-    private int width;
-    private int height;
-    private String title;
+    private final int width;
+    private final int height;
+    private final String title;
+
     private boolean running = false;
     private Window win;
     private Thread thread;
     private BufferStrategy bufferStrategy;
+
     private State gameState;
     private State menuState;
     private State gameOverState;
     private State pauseState;
+    private State testState;
+
     private KeyManager keyManager;
     private MouseManager mouseManager;
     private MenuActionManager menuActionManager;
+
     private Handler handler;
     private Logger logger;
 
@@ -65,6 +70,7 @@ public class Game implements Runnable {
         menuState = new MenuState(handler);
         gameOverState = new GameOverState(handler, width, height, 0);
         pauseState = new PauseState(handler);
+        testState = new TestState();
 
         State.setState(menuState);      //state to display when the game starts
         

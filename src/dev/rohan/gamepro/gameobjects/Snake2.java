@@ -189,19 +189,31 @@ public final class Snake2 {
             SnakeDirTile tile = snake.get(i);
             switch(tile.direction) {
                 case 'U':
-                    g.drawImage(Assets.snakeBody[1], tile.rect.x, tile.rect.y+DIRWIDTH, tile.rect.width, tile.rect.height-DIRWIDTH, null);
+                    if(tile.rect.height >= DIRWIDTH)
+                        g.drawImage(Assets.snakeBody[1], tile.rect.x, tile.rect.y+DIRWIDTH, tile.rect.width, tile.rect.height-DIRWIDTH, null);
+                    else
+                        g.drawImage(Assets.snakeBody[1], tile.rect.x, tile.rect.y, tile.rect.width, tile.rect.height, null);
                 break;
 
                 case 'D':
-                    g.drawImage(Assets.snakeBody[1], tile.rect.x, tile.rect.y, tile.rect.width, tile.rect.height-DIRWIDTH, null);
+                    if(tile.rect.height >= DIRWIDTH)
+                        g.drawImage(Assets.snakeBody[1], tile.rect.x, tile.rect.y, tile.rect.width, tile.rect.height-DIRWIDTH, null);
+                    else
+                        g.drawImage(Assets.snakeBody[1], tile.rect.x, tile.rect.y, tile.rect.width, tile.rect.height, null);
                 break;
 
                 case 'L':
-                    g.drawImage(Assets.snakeBody[0], tile.rect.x+DIRWIDTH, tile.rect.y, tile.rect.width-DIRWIDTH, tile.rect.height, null);
+                    if(tile.rect.width >= DIRWIDTH)
+                        g.drawImage(Assets.snakeBody[0], tile.rect.x+DIRWIDTH, tile.rect.y, tile.rect.width-DIRWIDTH, tile.rect.height, null);
+                    else
+                        g.drawImage(Assets.snakeBody[0], tile.rect.x, tile.rect.y, tile.rect.width, tile.rect.height, null);
                 break;
 
                 case 'R':
-                    g.drawImage(Assets.snakeBody[0], tile.rect.x, tile.rect.y, tile.rect.width-DIRWIDTH, tile.rect.height, null);
+                    if(tile.rect.width >= DIRWIDTH)
+                        g.drawImage(Assets.snakeBody[0], tile.rect.x, tile.rect.y, tile.rect.width-DIRWIDTH, tile.rect.height, null);
+                    else
+                        g.drawImage(Assets.snakeBody[0], tile.rect.x, tile.rect.y, tile.rect.width, tile.rect.height, null);
                 break;
             }
         }

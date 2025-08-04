@@ -29,7 +29,7 @@ public final class Snake2 {
         dir = 'R';
         // snakeColor = Color.BLUE;
         snake = new LinkedList<>();
-        snake.add(new SnakeDirTile(new Rectangle(100, 100, DIRWIDTH, DIRWIDTH), dir));
+        snake.add(new SnakeDirTile(new Rectangle(100, 100, DIRWIDTH*2, DIRWIDTH), dir));
     }
 
     private boolean checkBoundCrashes() {

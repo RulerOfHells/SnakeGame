@@ -183,8 +183,8 @@ public final class Snake2 {
         checkGameOver();
     }
     
-    public void render(Graphics g) { // Displays snake on screen
-        final Graphics2D graphics2D = (Graphics2D) g;
+    public void render(Graphics graphics) { // Displays snake on screen
+        final Graphics2D g = (Graphics2D) graphics;
         for(int i = snake.size()-1; i > 0; i--) {
             SnakeDirTile tile = snake.get(i);
             switch(tile.direction) {

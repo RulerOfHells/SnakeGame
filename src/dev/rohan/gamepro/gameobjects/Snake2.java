@@ -3,6 +3,7 @@ package dev.rohan.gamepro.gameobjects;
 import dev.rohan.gamepro.Assets;
 import dev.rohan.gamepro.Handler;
 import static dev.rohan.gamepro.gameobjects.SnakeDirTile.DIRWIDTH;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Rectangle;
@@ -12,7 +13,6 @@ public final class Snake2 {
     private LinkedList<SnakeDirTile> snake;
     private final Handler handler;
     private boolean gameOver;
-    // private Color snakeColor;
     private char dir;
     private int count;
     private volatile int speed;
@@ -270,6 +270,51 @@ public final class Snake2 {
                         g.drawImage(Assets.snakeBody[4], tile.rect.x+tile.rect.width-DIRWIDTH, tile.rect.y, DIRWIDTH, DIRWIDTH, null);
                 break;
             }
+        }
+        if(snake.size() == 1 && (snake.getLast().rect.width + snake.getLast().rect.height <= 2*DIRWIDTH))
+            return;
+        tile = snake.getLast();
+        g.setColor(Color.BLACK);
+        switch(tile.direction) {
+            case 'U':
+                if(tile.rect.height >= DIRWIDTH) {
+                    g.fillRect(tile.rect.x, tile.rect.y+tile.rect.height-DIRWIDTH, DIRWIDTH, DIRWIDTH);
+                    g.drawImage(Assets.snakeTail[1], tile.rect.x, tile.rect.y+tile.rect.height-DIRWIDTH, DIRWIDTH, DIRWIDTH, null);
+                } else {
+                    g.fillRect(tile.rect.x, tile.rect.y, tile.rect.width, tile.rect.height);
+                    g.drawImage(Assets.snakeTail[1], tile.rect.x, tile.rect.y, tile.rect.width, tile.rect.height, null);
+                }
+            break;
+
+            case 'D':
+                if(tile.rect.height >= DIRWIDTH) {
+                    g.fillRect(tile.rect.x, tile.rect.y, DIRWIDTH, DIRWIDTH);
+                    g.drawImage(Assets.snakeTail[0], tile.rect.x, tile.rect.y, DIRWIDTH, DIRWIDTH, null);
+                } else {
+                    g.fillRect(tile.rect.x, tile.rect.y, tile.rect.width, tile.rect.height);
+                    g.drawImage(Assets.snakeTail[0], tile.rect.x, tile.rect.y, tile.rect.width, tile.rect.height, null);
+                }
+            break;
+
+            case 'L':
+                if(tile.rect.width >= DIRWIDTH) {
+                    g.fillRect(tile.rect.x+tile.rect.width-DIRWIDTH, tile.rect.y, DIRWIDTH, DIRWIDTH);
+                    g.drawImage(Assets.snakeTail[3], tile.rect.x+tile.rect.width-DIRWIDTH, tile.rect.y, DIRWIDTH, DIRWIDTH, null);
+                } else {
+                    g.fillRect(tile.rect.x, tile.rect.y, tile.rect.width, tile.rect.height);
+                    g.drawImage(Assets.snakeTail[3], tile.rect.x, tile.rect.y, tile.rect.width, tile.rect.height, null);
+                }
+            break;
+
+            case 'R':
+                if(tile.rect.width >= DIRWIDTH) {
+                    g.fillRect(tile.rect.x, tile.rect.y, DIRWIDTH, DIRWIDTH);
+                    g.drawImage(Assets.snakeTail[2], tile.rect.x, tile.rect.y, DIRWIDTH, DIRWIDTH, null);
+                } else {
+                    g.fillRect(tile.rect.x, tile.rect.y, tile.rect.width, tile.rect.height);
+                    g.drawImage(Assets.snakeTail[2], tile.rect.x, tile.rect.y, tile.rect.width, tile.rect.height, null);
+                }
+            break;
         }
     }
 

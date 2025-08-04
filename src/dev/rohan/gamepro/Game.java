@@ -34,7 +34,7 @@ public class Game implements Runnable {
     private MenuActionManager menuActionManager;
 
     private Handler handler;
-    private Logger logger;
+    private static final Logger logger = Logger.getLogger("logs.txt");;
 
     public Game(int width, int height, String title) {
         this.width = width;
@@ -46,8 +46,6 @@ public class Game implements Runnable {
 
     public void init() {
         Assets.init();
-
-        logger = Logger.getLogger("logs.txt");
 
         win = new Window(width, height, title);
         thread = new Thread(this);
@@ -72,7 +70,7 @@ public class Game implements Runnable {
         pauseState = new PauseState(handler);
         testState = new TestState();
 
-        State.setState(menuState);      //state to display when the game starts
+        State.setState(gameState);      //state to display when the game starts
         
         win.pack();
     }

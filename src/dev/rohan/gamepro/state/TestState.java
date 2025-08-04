@@ -12,7 +12,7 @@ public class TestState extends State {      //purely for testing purposes
 
     @Override
     public void render(Graphics g) {
-        g.drawImage(Assets.snakeBody[0], 250, 250, 100, 15, null);
+        g.drawImage(Assets.snakeTail[0], 250, 250, 15, 15, null);
     }
 
     @Override

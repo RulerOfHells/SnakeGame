@@ -15,7 +15,7 @@ public class KeyManager implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if((System.currentTimeMillis() - lastPress) > 75) {           //prevents instant key registeration
+        if((System.currentTimeMillis() - lastPress) > 100) {           //prevents instant key registeration
             if (e.getKeyCode() == KeyEvent.VK_W && direction != 'D')
                 direction = 'U';
             if (e.getKeyCode() == KeyEvent.VK_S && direction != 'U')

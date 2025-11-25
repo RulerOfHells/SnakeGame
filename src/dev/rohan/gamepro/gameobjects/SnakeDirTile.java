@@ -5,11 +5,17 @@ import java.awt.Rectangle;
 public class SnakeDirTile {
     public static final int DIRWIDTH = 15;
     public final Rectangle rect;
-    public final char direction;
+    public char direction;
 
     public SnakeDirTile(Rectangle rect, char direction) {
         this.rect = rect;
         this.direction = direction;
+    }
+    
+    public boolean update(int speed, char aheadDir) {
+        if(rect.width <= DIRWIDTH && rect.height <= DIRWIDTH)
+            direction = aheadDir;
+        return update(speed);
     }
 
     public boolean update(int speed) {

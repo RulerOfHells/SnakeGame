@@ -70,7 +70,7 @@ public class Game implements Runnable {
         pauseState = new PauseState(handler);
         testState = new TestState();
 
-        State.setState(gameState);      //state to display when the game starts
+        State.setState(menuState);      //state to display when the game starts
         
         win.pack();
     }

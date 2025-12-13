@@ -8,10 +8,8 @@ import dev.rohan.gamepro.Handler;
 
 public class PauseState extends State {
 
-    private Handler handler;
-
     public PauseState(Handler handler) {
-        this.handler = handler;
+        super(handler);
     }
 
     private int isHovering(int x, int y) {               //checks for mouse hover in menu title                

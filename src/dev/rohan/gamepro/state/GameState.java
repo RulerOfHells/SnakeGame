@@ -8,14 +8,12 @@ import java.awt.Font;
 import java.awt.Graphics;
 
 public class GameState extends State {      //Implementation of State to display game contents
-
-    private final Handler handler;
     // private Snake snake;
     private final Snake2 snake;
     private final Food food;
 
     public GameState(Handler handler) {
-        this.handler = handler;
+        super(handler);
         food = handler.getFood();
         snake = handler.getSnake2();
     }

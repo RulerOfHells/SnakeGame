@@ -6,7 +6,7 @@ import dev.rohan.gamepro.managers.KeyManager;
 import dev.rohan.gamepro.managers.MenuActionManager;
 import dev.rohan.gamepro.managers.MouseManager;
 
-public class Handler {      //Helper class to provide smooth transition between states
+public class Handler {      //Helper class to pass around variables
     private final Game game;
     // private Snake snake;
     private final Snake2 snake2;

@@ -4,16 +4,15 @@ import java.awt.*;
 import dev.rohan.gamepro.Handler;
 
 public class GameOverState extends State {       //Game overs when snake collides with game bounds
-    private int width;
-    private int height;
+    private final int width;
+    private final int height;
     private int score;
-    private Handler handler;
 
     public GameOverState(Handler handler, int width, int height, int score) {
+        super(handler);
         this.height = height;
         this.width = width;
         this.score = score;
-        this.handler = handler;
     }
 
     @Override

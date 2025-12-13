@@ -27,14 +27,12 @@ public class Game implements Runnable {
     private State menuState;
     private State gameOverState;
     private State pauseState;
-    private State testState;
 
     private KeyManager keyManager;
     private MouseManager mouseManager;
     private MenuActionManager menuActionManager;
 
-    private Handler handler;
-    private static final Logger logger = Logger.getLogger("logs.txt");;
+    private static final Logger logger = Logger.getLogger(Game.class.getName());
 
     public Game(int width, int height, String title) {
         this.width = width;
@@ -62,15 +60,16 @@ public class Game implements Runnable {
         win.addMouseMotionListener(mouseManager);
         win.getMenuItem().addActionListener(menuActionManager);
 
-        handler = new Handler(this);
+        Handler handler = new Handler(this);
 
         gameState = new GameState(handler);
         menuState = new MenuState(handler);
         gameOverState = new GameOverState(handler, width, height, 0);
         pauseState = new PauseState(handler);
-        testState = new TestState();
 
-        State.setState(menuState);      //state to display when the game starts
+        State testState = new TestState(handler);  //solely for testing states
+
+        State.setState(menuState);      //state to tick and render when the game starts
         
         win.pack();
     }
@@ -175,10 +174,6 @@ public class Game implements Runnable {
 
     public MenuActionManager getMenuActionManager() {
         return menuActionManager;
-    }
-
-    public Handler getHandler() {
-        return handler;
     }
 
     public State getGameState() {

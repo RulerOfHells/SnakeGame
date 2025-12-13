@@ -10,13 +10,13 @@ import java.awt.Dimension;
 import java.awt.Color;
 
 public class Window extends JFrame {        //Constructs the main window on screen
-    private Canvas canvas;
-    private JMenuBar jmenuBar;
-    private JMenu menu;
-    private JMenuItem menuItem;
-    private int gameWidth;
-    private int gameHeight;
-    private String gameTitle;
+    private final Canvas canvas;
+    private final JMenuBar jmenuBar;
+    private final JMenu menu;
+    private final JMenuItem menuItem;
+    private final int gameWidth;
+    private final int gameHeight;
+    private final String gameTitle;
 
     public Window(int gameWidth, int gameHeight, String title) {
         this.gameWidth = gameWidth;

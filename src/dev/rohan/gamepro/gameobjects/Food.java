@@ -29,8 +29,8 @@ public final class Food {
 
     public void renew() {               //random food square co-ordinates
         for(int i = 0; i < AMT; i++) {
-            foodX[i] = random.nextInt(680);
-            foodY[i] = random.nextInt(580);
+            foodX[i] = random.nextInt(720 - 14 - foodWidth);
+            foodY[i] = random.nextInt(640 - 60 - foodHeight);
         }
         count = 0;
     }

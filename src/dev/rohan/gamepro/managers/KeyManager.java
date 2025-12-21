@@ -4,9 +4,9 @@ import java.awt.event.*;
 
 public class KeyManager implements KeyListener {
 
-    private char direction = 'R';     //default direction
+    private char direction;
     private boolean switchState;
-    private long lastPress = 0;
+    private long lastPress;
 
     @Override
     public void keyTyped(KeyEvent e) {
@@ -15,7 +15,7 @@ public class KeyManager implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if((System.currentTimeMillis() - lastPress) > 100) {           //prevents instant key registeration
+        if((System.currentTimeMillis() - lastPress) > 100) {           //prevents instant key registration
             if (e.getKeyCode() == KeyEvent.VK_W && direction != 'D')
                 direction = 'U';
             if (e.getKeyCode() == KeyEvent.VK_S && direction != 'U')

@@ -13,7 +13,7 @@ public class SnakeDirTile {
     }
     
     public boolean update(int speed, char aheadDir) {
-        if(rect.width <= DIRWIDTH && rect.height <= DIRWIDTH)
+        if(isSquareOrLess())
             direction = aheadDir;
         return update(speed);
     }
@@ -41,5 +41,13 @@ public class SnakeDirTile {
                 return 1 >= (tmp);
         }
         return false;
+    }
+
+    public boolean isLesserSquare() {
+        return rect.width + rect.height < 2*DIRWIDTH;
+    }
+
+    public boolean isSquareOrLess() {
+        return rect.width <= DIRWIDTH && rect.height <= DIRWIDTH;
     }
 }

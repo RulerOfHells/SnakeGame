@@ -58,5 +58,7 @@ public class MouseManager implements MouseInputListener {
     public int getY() {
         return y;
     }
+
+    public void reset() { click = false; }
     
 }

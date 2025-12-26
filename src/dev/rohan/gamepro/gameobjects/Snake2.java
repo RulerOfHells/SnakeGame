@@ -1,6 +1,6 @@
 package dev.rohan.gamepro.gameobjects;
 
-import dev.rohan.gamepro.Assets;
+import dev.rohan.gamepro.utils.Assets;
 import dev.rohan.gamepro.Handler;
 import static dev.rohan.gamepro.gameobjects.SnakeDirTile.DIRWIDTH;
 
@@ -188,7 +188,7 @@ public final class Snake2 {
         checkGameOver();
     }
     
-    public void render(Graphics graphics) { // Displays snake on screen
+    public void render(Graphics graphics) {     // Displays snake on screen
         final Graphics2D g = (Graphics2D) graphics;
 
         if(snake.size() == 1 && (snake.getLast().rect.width + snake.getLast().rect.height <= 2*DIRWIDTH))   //not appropriate size
@@ -309,8 +309,7 @@ public final class Snake2 {
         if(i == snake.size() - 2 && snake.getLast().isLesserSquare()) {
             return switch(dir) {
                 case 'U', 'D' -> DIRWIDTH - snake.getLast().rect.height;
-                case 'L', 'R' -> DIRWIDTH - snake.getLast().rect.width;
-                default -> 0;
+                default -> DIRWIDTH - snake.getLast().rect.width;
             };
         }
         return 0;
@@ -321,14 +320,16 @@ public final class Snake2 {
             return null;
 
         if(isLast && prevDir == snake.getLast().direction)
-            return null;
+            return switch (dir) {
+                case 'U', 'D' -> Assets.snakeBody[1];
+                default -> Assets.snakeBody[0];
+            };
         else {
             return switch (currDir) {
                 case 'U' -> (prevDir == 'L') ? Assets.snakeBody[4] : Assets.snakeBody[5];
                 case 'D' -> (prevDir == 'L') ? Assets.snakeBody[2] : Assets.snakeBody[3];
                 case 'L' -> (prevDir == 'U') ? Assets.snakeBody[3] : Assets.snakeBody[5];
-                case 'R' -> (prevDir == 'U') ? Assets.snakeBody[2] : Assets.snakeBody[4];
-                default -> null;
+                default -> (prevDir == 'U') ? Assets.snakeBody[2] : Assets.snakeBody[4];    //R
             };
         }
     }

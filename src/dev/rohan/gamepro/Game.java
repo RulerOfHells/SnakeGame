@@ -1,15 +1,16 @@
 package dev.rohan.gamepro;
 
 import dev.rohan.gamepro.managers.KeyManager;
-import dev.rohan.gamepro.managers.MenuActionManager;
 import dev.rohan.gamepro.managers.MouseManager;
-import dev.rohan.gamepro.state.GameOverState;
-import dev.rohan.gamepro.state.GameState;
-import dev.rohan.gamepro.state.MenuState;
-import dev.rohan.gamepro.state.PauseState;
-import dev.rohan.gamepro.state.State;
-import dev.rohan.gamepro.state.TestState;
-import java.awt.Graphics;
+import dev.rohan.gamepro.states.GameOverState;
+import dev.rohan.gamepro.states.GameState;
+import dev.rohan.gamepro.states.MenuState;
+import dev.rohan.gamepro.states.PauseState;
+import dev.rohan.gamepro.states.State;
+import dev.rohan.gamepro.states.TestState;
+import dev.rohan.gamepro.utils.Assets;
+
+import java.awt.*;
 import java.awt.image.BufferStrategy;
 import java.util.logging.Logger;
 
@@ -30,7 +31,6 @@ public class Game implements Runnable {
 
     private KeyManager keyManager;
     private MouseManager mouseManager;
-    private MenuActionManager menuActionManager;
 
     private static final Logger logger = Logger.getLogger(Game.class.getName());
 
@@ -50,7 +50,6 @@ public class Game implements Runnable {
         bufferStrategy = win.getCanvas().getBufferStrategy();
         keyManager = new KeyManager();
         mouseManager = new MouseManager();
-        menuActionManager = new MenuActionManager();
 
         win.getCanvas().addKeyListener(keyManager);
         win.getCanvas().addMouseListener(mouseManager);
@@ -58,7 +57,6 @@ public class Game implements Runnable {
         win.addKeyListener(keyManager);
         win.addMouseListener(mouseManager);
         win.addMouseMotionListener(mouseManager);
-        win.getMenuItem().addActionListener(menuActionManager);
 
         Handler handler = new Handler(this);
 
@@ -95,8 +93,6 @@ public class Game implements Runnable {
 
     @Override
     public void run() {     //basic game loop
-
-        win.menuInit();
         win.display();
 
         final int FPS = 60;
@@ -149,6 +145,11 @@ public class Game implements Runnable {
         graphics.clearRect(0, 0, width, height);        //refresh screen each time
 
                                //Drawing area starts
+        if(State.getState() instanceof PauseState) {
+            gameState.render(graphics);
+            graphics.setColor(new Color(0, 0, 0, 150));
+            graphics.fillRect(0, 0, width, height);
+        }
         State.getState().render(graphics);
                                //Drawing area ends
 
@@ -170,10 +171,6 @@ public class Game implements Runnable {
 
     public MouseManager getMouseManager() {
         return mouseManager;
-    }
-
-    public MenuActionManager getMenuActionManager() {
-        return menuActionManager;
     }
 
     public State getGameState() {

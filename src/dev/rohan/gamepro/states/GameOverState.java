@@ -1,4 +1,4 @@
-package dev.rohan.gamepro.state;
+package dev.rohan.gamepro.states;
 
 import java.awt.*;
 import dev.rohan.gamepro.Handler;
@@ -21,8 +21,6 @@ public class GameOverState extends State {       //Game overs when snake collide
             handler.getGame().getGameState().reset();
             State.setState(handler.getGame().getMenuState());
         }
-        if(handler.getMenuActionManager().isAction())
-           handler.getGame().stop();
     }
 
     @Override

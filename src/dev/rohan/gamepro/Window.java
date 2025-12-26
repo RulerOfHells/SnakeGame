@@ -11,9 +11,6 @@ import java.awt.Color;
 
 public class Window extends JFrame {        //Constructs the main window on screen
     private final Canvas canvas;
-    private final JMenuBar jmenuBar;
-    private final JMenu menu;
-    private final JMenuItem menuItem;
     private final int gameWidth;
     private final int gameHeight;
     private final String gameTitle;
@@ -24,15 +21,6 @@ public class Window extends JFrame {        //Constructs the main window on scre
         this.gameTitle = title;
         
         canvas = new Canvas();
-        jmenuBar = new JMenuBar();
-        menu = new JMenu("Options");
-        menuItem = new JMenuItem("Exit");
-    }
-
-    public void menuInit() {
-        jmenuBar.add(menu);
-        menu.add(menuItem);
-        setJMenuBar(jmenuBar);
     }
 
     public void display() {
@@ -57,9 +45,5 @@ public class Window extends JFrame {        //Constructs the main window on scre
 
     public Canvas getCanvas() {
         return canvas;
-    }
-
-    public JMenuItem getMenuItem() {
-        return menuItem;
     }
 }

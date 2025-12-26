@@ -1,4 +1,4 @@
-package dev.rohan.gamepro.state;
+package dev.rohan.gamepro.states;
 
 import dev.rohan.gamepro.Handler;
 

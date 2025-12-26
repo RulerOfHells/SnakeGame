@@ -3,7 +3,6 @@ package dev.rohan.gamepro;
 import dev.rohan.gamepro.gameobjects.Food;
 import dev.rohan.gamepro.gameobjects.Snake2;
 import dev.rohan.gamepro.managers.KeyManager;
-import dev.rohan.gamepro.managers.MenuActionManager;
 import dev.rohan.gamepro.managers.MouseManager;
 
 public class Handler {      //Helper class to pass around variables
@@ -37,10 +36,6 @@ public class Handler {      //Helper class to pass around variables
 
     public MouseManager getMouseManager() {
         return game.getMouseManager();
-    }
-
-    public MenuActionManager getMenuActionManager() {
-        return game.getMenuActionManager();
     }
 
     // public Snake getSnake() {

@@ -1,4 +1,4 @@
-package dev.rohan.gamepro.state;
+package dev.rohan.gamepro.states;
 
 import dev.rohan.gamepro.Handler;
 import dev.rohan.gamepro.gameobjects.Food;
@@ -24,9 +24,6 @@ public class GameState extends State {      //Implementation of State to display
 
         if(handler.getKeyManager().isSwitchState())
            State.setState(handler.getGame().getPauseState());
-
-        if(handler.getMenuActionManager().isAction())
-           handler.getGame().stop();
 
         if(snake.isGameOver()) {
             ((GameOverState) handler.getGame().getGameOverState()).setScore(snake.getCount());

@@ -1,6 +1,6 @@
 package dev.rohan.gamepro.gameobjects;
 
-import dev.rohan.gamepro.Assets;
+import dev.rohan.gamepro.utils.Assets;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
@@ -29,8 +29,8 @@ public final class Food {
 
     public void renew() {               //random food square co-ordinates
         for(int i = 0; i < AMT; i++) {
-            foodX[i] = random.nextInt(720 - 14 - foodWidth);
-            foodY[i] = random.nextInt(640 - 60 - foodHeight);
+            foodX[i] = random.nextInt(720 - 15 - foodWidth);
+            foodY[i] = Math.max(2, random.nextInt(640 - 40 - foodHeight));
         }
         count = 0;
     }

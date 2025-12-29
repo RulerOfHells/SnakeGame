@@ -43,7 +43,7 @@ public class SettingsState extends GUIState {
         rSlider = new ColorSlider(startX, startY, 200, "Red", 0, 255, Color.RED);
         gSlider = new ColorSlider(startX, startY + 60, 200, "Green", 0, 255, Color.GREEN);
         bSlider = new ColorSlider(startX, startY + 120, 200, "Blue", 0, 255, Color.BLUE);
-        sensSlider = new ColorSlider(startX, startY + 180, 200, "Sensitivity", 1, 10, Color.YELLOW);
+        sensSlider = new ColorSlider(startX, startY + 180, 200, "Sensitivity", 0, 5, Color.YELLOW);
 
         snake = new Snake2(handler, 15*5, 'U', panelBounds.x + panelBounds.width - 100, (panelBounds.y + panelBounds.height)/3);
     }
@@ -70,10 +70,10 @@ public class SettingsState extends GUIState {
         bSlider.render(g);
         sensSlider.render(g);
 
-        SnakeColor.setColor(new Color(rSlider.getValue(), gSlider.getValue(), bSlider.getValue()));
-        SnakeColor.setSensitivity(sensSlider.getValue());
+        SnakeColor.setColor(new Color(rSlider.getIntValue(), gSlider.getIntValue(), bSlider.getIntValue()));
+        SnakeColor.setSensitivity(sensSlider.getFloatValue());
 
-        g.setColor(new Color(rSlider.getValue(), gSlider.getValue(), bSlider.getValue()));
+        g.setColor(new Color(rSlider.getIntValue(), gSlider.getIntValue(), bSlider.getIntValue()));
         g.fillRect(panelBounds.x + 300, panelBounds.y + 120, 100, 100);
         g.setColor(Color.WHITE);
         g.drawRect(panelBounds.x + 300, panelBounds.y + 120, 100, 100);

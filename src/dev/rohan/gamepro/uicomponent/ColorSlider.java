@@ -3,20 +3,23 @@ package dev.rohan.gamepro.uicomponent;
 import java.awt.*;
 
 public class ColorSlider {
-    private int x, y, width, height;
-    private String label;
+    private final int x;
+    private final int y;
+    private final int width;
+    private final String label;
     private volatile float value; // 0.0 to 1.0
-    private int min, max;
+    private final int min;
+    private final int max;
 
-    private Rectangle track;
+    private final Rectangle track;
     private boolean dragging = false;
-    private Color themeColor;
+    private final Color themeColor;
 
     public ColorSlider(int x, int y, int width, String label, int min, int max, Color themeColor) {
         this.x = x;
         this.y = y;
         this.width = width;
-        this.height = 10; // Thickness of the track
+        int height = 10; // Thickness of the track
         this.label = label;
         this.min = min;
         this.max = max;
@@ -50,25 +53,20 @@ public class ColorSlider {
         Graphics2D g2d = (Graphics2D) g;
         g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
-        // 1. Draw Label and Value
         g2d.setColor(Color.WHITE);
         g2d.setFont(new Font("Arial", Font.BOLD, 14));
-        g2d.drawString(label + ": " + getValue(), x, y + 10);
+        g2d.drawString(label + ": %.1f".formatted(getFloatValue()), x, y + 10);
 
-        // 2. Draw Track (Background)
         g2d.setColor(Color.DARK_GRAY);
         g2d.fillRoundRect(track.x, track.y, track.width, track.height, 10, 10);
 
-        // 3. Draw Track (Filled portion)
         g2d.setColor(themeColor);
         g2d.fillRoundRect(track.x, track.y, (int)(width * value), track.height, 10, 10);
 
-        // 4. Draw Thumb
         Rectangle thumb = getThumbBounds();
         g2d.setColor(Color.WHITE);
         g2d.fillOval(thumb.x, thumb.y, thumb.width, thumb.height);
 
-        // Optional: Draw a border around thumb if dragging
         if (dragging) {
             g2d.setColor(themeColor);
             g2d.setStroke(new BasicStroke(2));
@@ -83,7 +81,11 @@ public class ColorSlider {
         return new Rectangle(thumbX, thumbY, thumbSize, thumbSize);
     }
 
-    public int getValue() {
-        return min + (int) (value * (max - min));
+    public float getFloatValue() {
+        return min + (value * (max - min));
+    }
+
+    public int getIntValue() {
+        return (int) getFloatValue();
     }
 }

@@ -1,13 +1,7 @@
 package dev.rohan.gamepro;
 
-import javax.swing.JFrame;
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-
-import java.awt.Canvas;
-import java.awt.Dimension;
-import java.awt.Color;
+import javax.swing.*;
+import java.awt.*;
 
 public class Window extends JFrame {        //Constructs the main window on screen
     private final Canvas canvas;

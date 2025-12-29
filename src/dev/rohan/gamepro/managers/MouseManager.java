@@ -37,12 +37,12 @@ public class MouseManager implements MouseInputListener {
 
     @Override
     public void mouseDragged(MouseEvent e) {
-        //nAn
+        x = e.getX();
+        y = e.getY();
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
-        //nAn
         x = e.getX();
         y = e.getY();
     }

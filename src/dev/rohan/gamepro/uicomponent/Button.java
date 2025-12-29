@@ -12,7 +12,11 @@ public class Button {
     private boolean hovering;
 
     public Button(int x, int y, BufferedImage defaultImage, BufferedImage hoverImage,  ButtonAction action) {
-        rectangle = new Rectangle(x, y, defaultImage.getWidth(), defaultImage.getHeight());
+        this(x, y, defaultImage.getWidth(), defaultImage.getHeight(), defaultImage, hoverImage, action);
+    }
+
+    public Button(int x, int y, int width, int height, BufferedImage defaultImage, BufferedImage hoverImage,  ButtonAction action) {
+        rectangle = new Rectangle(x, y, width, height);
         this.defaultImage = defaultImage;
         this.hoverImage = hoverImage;
         this.action = action;
@@ -27,7 +31,7 @@ public class Button {
     public void render(Graphics g) {
         Graphics2D g2d = (Graphics2D) g;
         BufferedImage image = (hovering) ? hoverImage : defaultImage;
-        g2d.drawImage(image, rectangle.x, rectangle.y, null);
+        g2d.drawImage(image, rectangle.x, rectangle.y, rectangle.width, rectangle.height, null);
     }
 
     public int getX() {

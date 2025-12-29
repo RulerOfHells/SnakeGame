@@ -2,12 +2,7 @@ package dev.rohan.gamepro;
 
 import dev.rohan.gamepro.managers.KeyManager;
 import dev.rohan.gamepro.managers.MouseManager;
-import dev.rohan.gamepro.states.GameOverState;
-import dev.rohan.gamepro.states.GameState;
-import dev.rohan.gamepro.states.MenuState;
-import dev.rohan.gamepro.states.PauseState;
-import dev.rohan.gamepro.states.State;
-import dev.rohan.gamepro.states.TestState;
+import dev.rohan.gamepro.states.*;
 import dev.rohan.gamepro.utils.Assets;
 
 import java.awt.*;
@@ -28,6 +23,7 @@ public class Game implements Runnable {
     private State menuState;
     private State gameOverState;
     private State pauseState;
+    private State settingsState;
 
     private KeyManager keyManager;
     private MouseManager mouseManager;
@@ -64,6 +60,7 @@ public class Game implements Runnable {
         menuState = new MenuState(handler);
         gameOverState = new GameOverState(handler, width, height, 0);
         pauseState = new PauseState(handler);
+        settingsState = new SettingsState(handler);
 
         State testState = new TestState(handler);  //solely for testing states
 
@@ -145,11 +142,6 @@ public class Game implements Runnable {
         graphics.clearRect(0, 0, width, height);        //refresh screen each time
 
                                //Drawing area starts
-        if(State.getState() instanceof PauseState) {
-            gameState.render(graphics);
-            graphics.setColor(new Color(0, 0, 0, 150));
-            graphics.fillRect(0, 0, width, height);
-        }
         State.getState().render(graphics);
                                //Drawing area ends
 
@@ -187,5 +179,9 @@ public class Game implements Runnable {
 
     public State getPauseState() {
         return pauseState;
+    }
+
+    public State getSettingsState() {
+        return settingsState;
     }
 }

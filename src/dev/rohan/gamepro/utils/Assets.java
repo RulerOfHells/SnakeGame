@@ -9,7 +9,7 @@ import static javax.imageio.ImageIO.read;
 
 public class Assets {   //Utility class to provide static resources
 
-    public static final BufferedImage[] buttons = new BufferedImage[10];
+    public static final BufferedImage[] buttons = new BufferedImage[14];
     public static final BufferedImage[] panels = new BufferedImage[5];
     public static final BufferedImage[] snakeBody = new BufferedImage[6];
     public static final BufferedImage[] snakeHead = new BufferedImage[4];
@@ -39,6 +39,10 @@ public class Assets {   //Utility class to provide static resources
             buttons[7] = read(requireNonNull(clazz.getResourceAsStream(GUI_BUTTON + "RestartHover.png")));
             buttons[8] = read(requireNonNull(clazz.getResourceAsStream(GUI_BUTTON + "HomeDefault.png")));
             buttons[9] = read(requireNonNull(clazz.getResourceAsStream(GUI_BUTTON + "HomeHover.png")));
+            buttons[10] = read(requireNonNull(clazz.getResourceAsStream(GUI_BUTTON + "CancelDefault.png")));
+            buttons[11] = read(requireNonNull(clazz.getResourceAsStream(GUI_BUTTON + "CancelHover.png")));
+            buttons[12] = read(requireNonNull(clazz.getResourceAsStream(GUI_BUTTON + "EyeDefault.png")));
+            buttons[13] = read(requireNonNull(clazz.getResourceAsStream(GUI_BUTTON + "EyeHover.png")));
             
             panels[0] = read(requireNonNull(clazz.getResourceAsStream(GUI_PANEL + "WindowBig.png")));
             panels[1] = read(requireNonNull(clazz.getResourceAsStream(GUI_PANEL + "WindowMedium.png")));

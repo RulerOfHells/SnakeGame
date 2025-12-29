@@ -1,8 +1,11 @@
 package dev.rohan.gamepro.utils;
 
-import java.awt.*;
+import java.awt.Color;
+import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
 import java.awt.image.DataBufferInt;
+import java.util.ArrayList;
+import java.util.List;
 
 public class TextureAdjust {
 
@@ -68,6 +71,13 @@ public class TextureAdjust {
             }
         }
         return result;
+    }
+
+    public static BufferedImage[] shiftBlueToTarget(BufferedImage[] img, Color targetColor, double sensitivity) {
+        List<BufferedImage> result = new ArrayList<>();
+        for(var i : img)
+            result.add(shiftBlueToTarget(i, targetColor, sensitivity));
+        return result.toArray(new BufferedImage[0]);
     }
 
     private static int clamp(int val) {

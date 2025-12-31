@@ -58,7 +58,7 @@ public class Game implements Runnable {
 
         gameState = new GameState(handler);
         menuState = new MenuState(handler);
-        gameOverState = new GameOverState(handler, width, height, 0);
+        gameOverState = new GameOverState(handler);
         pauseState = new PauseState(handler);
         settingsState = new SettingsState(handler);
 

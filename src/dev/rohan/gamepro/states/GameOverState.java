@@ -2,37 +2,39 @@ package dev.rohan.gamepro.states;
 
 import java.awt.*;
 import dev.rohan.gamepro.Handler;
+import dev.rohan.gamepro.uicomponent.Button;
+import dev.rohan.gamepro.utils.Assets;
 
-public class GameOverState extends State {       //Game overs when snake collides with game bounds
-    private final int width;
-    private final int height;
+public class GameOverState extends GUIState {       //Game overs when snake collides with game bounds
     private int score;
 
-    public GameOverState(Handler handler, int width, int height, int score) {
-        super(handler);
-        this.height = height;
-        this.width = width;
-        this.score = score;
+    public GameOverState(Handler handler) {
+        super(handler, Assets.panels[0], "Game Over");
     }
 
-    @Override
-    public void tick() {        //checks for events
-        if(handler.getMouseManager().isClick()) {
-            handler.getGame().getGameState().reset();
+    public void initUI() {
+        int buttonX = panelBounds.x + panelBounds.width / 2 - Assets.buttons[2].getWidth() / 2;
+        int buttonY = panelBounds.y + panelBounds.height - Assets.buttons[2].getHeight() - 10;
+
+        buttons.add(new Button(buttonX, buttonY, Assets.buttons[8], Assets.buttons[9], () -> {
+            mouseManager.reset();
             State.setState(handler.getGame().getMenuState());
-        }
+        }));
+        buttonY -= buttons.getLast().getHeight() + 2;
+
+        buttons.add(new Button(buttonX, buttonY, Assets.buttons[6], Assets.buttons[7], () -> {
+            handler.getGame().getGameState().reset();
+            State.setState(handler.getGame().getGameState());
+        }));
     }
 
     @Override
-    public void render(Graphics g) {        //Displays game over message with score count
-        g.setColor(Color.BLACK);
-        g.drawRect(0, 0, width, height);
-
-        g.setFont(new Font(Font.SANS_SERIF, Font.BOLD, 25));
-        g.setColor(Color.RED);
-        g.drawString("Game Over", (handler.getWidth() / 2) - 75, 25);
-        g.setColor(Color.GREEN);
-        g.drawString("Score: " + score, 25, 60);
+    public void render(Graphics g) {
+        super.render(g);
+        g.setColor(Color.PINK);
+        FontMetrics metrics = g.getFontMetrics(font);
+        String scoreLabel = "Your score is: " + score;
+        g.drawString(scoreLabel, panelBounds.x + (panelBounds.width - metrics.stringWidth(scoreLabel))/2, buttons.getLast().getY() - 50);
     }
 
     @Override

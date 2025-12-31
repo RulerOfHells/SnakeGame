@@ -15,7 +15,7 @@ public class SettingsState extends GUIState {
     private Snake2 snake;
 
     public SettingsState(Handler handler) {
-        super(handler, Assets.panels[0], "Settings", Color.YELLOW, (int) (handler.getWidth()/1.2), (int) (handler.getHeight()/1.2));
+        super(handler, Assets.panels[0], "Settings", Color.YELLOW, (int) (handler.getWidth()/1.2), (int) (handler.getHeight()/1.4));
     }
 
     @Override
@@ -45,7 +45,7 @@ public class SettingsState extends GUIState {
         bSlider = new ColorSlider(startX, startY + 120, 200, "Blue", 0, 255, Color.BLUE);
         sensSlider = new ColorSlider(startX, startY + 180, 200, "Sensitivity", 0, 5, Color.YELLOW);
 
-        snake = new Snake2(handler, 15*5, 'U', panelBounds.x + panelBounds.width - 100, (panelBounds.y + panelBounds.height)/3);
+        snake = new Snake2(handler, 15*5, 'U', panelBounds.x + panelBounds.width - 100, (panelBounds.y + panelBounds.height)/3 + 30);
     }
 
     @Override

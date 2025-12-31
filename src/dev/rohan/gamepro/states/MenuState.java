@@ -4,10 +4,12 @@ import dev.rohan.gamepro.Handler;
 import dev.rohan.gamepro.uicomponent.Button;
 import dev.rohan.gamepro.utils.Assets;
 
+import java.awt.*;
+
 public class MenuState extends GUIState {
 
     public MenuState(Handler handler) {
-        super(handler, Assets.panels[0], "Snake Game");
+        super(handler, Assets.panels[0], "Snake Game", Color.BLUE);
     }
 
     public void initUI() {

@@ -8,7 +8,7 @@ import java.util.Random;
 
 public final class Food {
     private static final int AMT = 20;      //game starts with these amount of food
-    private int count = 0;
+    private int count;
     private final int[] foodX;
     private final int[] foodY;
     private final int foodWidth;
@@ -27,10 +27,10 @@ public final class Food {
         renew();
     }
 
-    public void renew() {               //random food square co-ordinates
+    public void renew() {               //random food square's center co-ordinates
         for(int i = 0; i < AMT; i++) {
-            foodX[i] = random.nextInt(720 - 15 - foodWidth);
-            foodY[i] = Math.max(2, random.nextInt(640 - 40 - foodHeight));
+            foodX[i] = random.nextInt(720 - 2 * foodWidth);
+            foodY[i] = Math.max(2, random.nextInt(640 - 2 * foodHeight));
         }
         count = 0;
     }
@@ -39,7 +39,7 @@ public final class Food {
         for(int i = 0; i < AMT; i++) {
             if(foodX[i] >= 0 && foodY[i] >= 0) {
                 g.setColor(Color.WHITE);
-                // g.fillRect(foodX[i], foodY[i], foodWidth, foodHeight);
+                //g.drawRect(foodX[i] - foodWidth/2, foodY[i] - foodHeight/2, foodWidth, foodHeight);
                 g.drawImage(Assets.apple[0], foodX[i] - foodWidth/2, foodY[i] - foodHeight/2, foodWidth, foodHeight, null);
             }
        }
